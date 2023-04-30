@@ -12,6 +12,7 @@ namespace Yugant_Library.Controller2D
         public Button settingButton;
         public Button shopButton;
 
+        public BaseScreenScript[] screensArr;
 
         private void Awake()
         {
@@ -28,6 +29,8 @@ namespace Yugant_Library.Controller2D
         public void PlayButton()
         {
             Debug.Log("Play Button Clicked.");
+
+
         }
 
         public void SettingButton()
