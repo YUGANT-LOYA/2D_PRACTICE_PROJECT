@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using NaughtyAttributes;
+using Sirenix.OdinInspector;
 using System;
 
 namespace Yugant_Library.Controller2D
