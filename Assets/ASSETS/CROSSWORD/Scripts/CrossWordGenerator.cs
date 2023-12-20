@@ -113,7 +113,7 @@ namespace YugantLoyaLibrary.CrossWordGenerator
             BoxTile boxTile = GetBoxByID(startingBox.x, startingBox.y);
             int letterIndex = 0;
             BoxTile currBoxTile = boxTile, tempBoxTile;
-
+            List<BoxTile> crossWordBoxTiles = new List<BoxTile>();
 
             switch (dir)
             {
@@ -122,7 +122,8 @@ namespace YugantLoyaLibrary.CrossWordGenerator
                     while (letterIndex < word.Length)
                     {
                         currBoxTile.BoxData = word[letterIndex].ToString();
-                        tempBoxTile = currBoxTile.GetNeighbour(BoxTile.BoxNeighbour.Left);
+                        crossWordBoxTiles.Add(currBoxTile);
+                        tempBoxTile = currBoxTile.GetNeighbour(BoxTile.BoxNeighbour.Right);
                         currBoxTile = tempBoxTile;
                         letterIndex++;
                     }
@@ -135,11 +136,11 @@ namespace YugantLoyaLibrary.CrossWordGenerator
                     while (letterIndex < word.Length)
                     {
                         currBoxTile.BoxData = word[letterIndex].ToString();
+                        crossWordBoxTiles.Add(currBoxTile);
                         tempBoxTile = currBoxTile.GetNeighbour(BoxTile.BoxNeighbour.Bottom);
                         currBoxTile = tempBoxTile;
                         letterIndex++;
                     }
-
                     
                     break;
             }
@@ -148,6 +149,13 @@ namespace YugantLoyaLibrary.CrossWordGenerator
             {
                 Debug.Log("Word Formation is Not Possible for : " + word);
                 return false;
+            }
+
+
+            //Tiles That are already
+            foreach (BoxTile tile in crossWordBoxTiles)
+            {
+                tile.isBoxUsed = true;
             }
             
             Debug.Log("Word Formation is Possible for : " + word);
