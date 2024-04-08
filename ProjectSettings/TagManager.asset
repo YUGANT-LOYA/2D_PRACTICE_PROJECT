@@ -13,9 +13,9 @@ TagManager:
   - Water
   - UI
   - CannotDraw
-  - Grid
-  - 
-  - 
+  - Box
+  - Tile
+  - KeyPad
   - 
   - 
   - 

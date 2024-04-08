@@ -39,13 +39,14 @@ namespace YugantLoyaLibrary.SudokuSolver
 
         public void OnKeyClicked()
         {
-            //Debug.Log("Key Clicked : " + KeyNum);
-            
-            if (SudokuManager.currSudokuTile != null)
-            {
-                SudokuManager.currSudokuTile.TileVal = KeyNum;
+            if (SudokuManager.currSudokuTile == null) 
+                return;
 
-            }
+            if (!SudokuManager.currSudokuTile.canBeChanged)
+                return;
+            
+            SudokuManager.currSudokuTile.TileVal = KeyNum;
+            SudokuManager.checkConditionEvent?.Invoke(SudokuManager.currSudokuTile);
         }
     }
 }

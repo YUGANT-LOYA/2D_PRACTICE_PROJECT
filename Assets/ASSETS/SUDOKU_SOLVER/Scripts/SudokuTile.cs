@@ -7,9 +7,11 @@ namespace YugantLoyaLibrary.SudokuSolver
 {
     public class SudokuTile : MonoBehaviour
     {
-        Action<int> _onTileValueChangeEvent;
+        Action<int> _onTileValueChangeEvent; 
+        public Vector2Int sudokuTileId;
         public int tileVal;
         public bool canBeChanged;
+        public SudokuBox currSudokuBox;
         [SerializeField] private TextMeshProUGUI tileText;
         [SerializeField] private Outline tileOutline;
         public Color defaultTileOutlineColor, highlightTileOutlineColor;
@@ -35,15 +37,8 @@ namespace YugantLoyaLibrary.SudokuSolver
             TileVal = tileVal;
         }
 
-        private void Update()
-        {
-        }
-
         void OnSudokuTileValueChange(int val)
         {
-            if (!canBeChanged)
-                return;
-
             tileVal = val;
             tileText.text = val is <= 9 and >= 1 ? tileVal.ToString() : "";
         }
@@ -58,7 +53,6 @@ namespace YugantLoyaLibrary.SudokuSolver
         public void OnTileDeselect()
         {
             Debug.Log("Tile Deselected : " + gameObject.name);
-            //SudokuManager.selectedTileEvent?.Invoke(null);
             SetDefaultTileColor();
         }
 

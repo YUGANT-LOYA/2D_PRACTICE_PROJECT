@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1092941218392573246
+--- !u!1 &3994094894180257230
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,77 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1092941218392573241}
+  - component: {fileID: 3994094894180257231}
+  - component: {fileID: 3994094894180257229}
+  - component: {fileID: 3994094894180257228}
+  - component: {fileID: 438546369710297210}
+  - component: {fileID: 438546369710297211}
   m_Layer: 7
-  m_Name: Sudoku_MainBox_Container
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1092941218392573241
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1092941218392573246}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1092941218609674160}
-  m_Father: {fileID: 0}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 300, y: 300}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1092941218609674161
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1092941218609674160}
-  - component: {fileID: 1092941218609674162}
-  - component: {fileID: 1092941218609674163}
-  - component: {fileID: 4490387362694752773}
-  - component: {fileID: 4490387362694752772}
-  m_Layer: 5
   m_Name: TileContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &1092941218609674160
+--- !u!224 &3994094894180257231
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1092941218609674161}
+  m_GameObject: {fileID: 3994094894180257230}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2238512052021268151}
-  - {fileID: 2238512051927463773}
-  - {fileID: 2238512051341979098}
-  - {fileID: 2238512052342927903}
-  - {fileID: 2238512052358918159}
-  - {fileID: 2238512051894309109}
-  - {fileID: 2238512051494805881}
-  - {fileID: 2238512052210069542}
-  - {fileID: 2238512052167408197}
-  m_Father: {fileID: 1092941218392573241}
+  - {fileID: 2834948635498968264}
+  - {fileID: 2834948635406191906}
+  - {fileID: 2834948636933560229}
+  - {fileID: 2834948635779188832}
+  - {fileID: 2834948635828210288}
+  - {fileID: 2834948636446239370}
+  - {fileID: 2834948636038339334}
+  - {fileID: 2834948635645774425}
+  - {fileID: 2834948635636138042}
+  m_Father: {fileID: 3994094895070478150}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -86,21 +49,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &1092941218609674162
+--- !u!222 &3994094894180257229
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1092941218609674161}
+  m_GameObject: {fileID: 3994094894180257230}
   m_CullTransparentMesh: 1
---- !u!114 &1092941218609674163
+--- !u!114 &3994094894180257228
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1092941218609674161}
+  m_GameObject: {fileID: 3994094894180257230}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -124,13 +87,13 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &4490387362694752773
+--- !u!114 &438546369710297210
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1092941218609674161}
+  m_GameObject: {fileID: 3994094894180257230}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
@@ -139,13 +102,13 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
   m_EffectDistance: {x: 15, y: 15}
   m_UseGraphicAlpha: 1
---- !u!114 &4490387362694752772
+--- !u!114 &438546369710297211
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1092941218609674161}
+  m_GameObject: {fileID: 3994094894180257230}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a8695521f0d02e499659fee002a26c2, type: 3}
@@ -163,16 +126,115 @@ MonoBehaviour:
   m_Spacing: {x: 10, y: 10}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!1001 &4794413546686679389
+--- !u!1 &3994094895070478145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3994094895070478150}
+  - component: {fileID: 7855283711637736333}
+  m_Layer: 7
+  m_Name: Sudoku_Box_Container
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3994094895070478150
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3994094895070478145}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 3994094894180257231}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 300, y: 300}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7855283711637736333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3994094895070478145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a52cdd3d4fdfdb45af06fd3a8e43289, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sudokuBoxId: {x: 0, y: 0}
+  totalTilesInBoxArr:
+  - {fileID: 4345514001319724120}
+  - {fileID: 4345514001227038130}
+  - {fileID: 4345514000338249525}
+  - {fileID: 4345514001339922672}
+  - {fileID: 4345514001388944096}
+  - {fileID: 4345514000924662298}
+  - {fileID: 4345514000793594774}
+  - {fileID: 4345514001475041993}
+  - {fileID: 4345514001196708010}
+  horizontalTileStructArr:
+  - sudokuTileArr:
+    - {fileID: 4345514001319724120}
+    - {fileID: 4345514001227038130}
+    - {fileID: 4345514000338249525}
+  - sudokuTileArr:
+    - {fileID: 4345514001339922672}
+    - {fileID: 4345514001388944096}
+    - {fileID: 4345514000924662298}
+  - sudokuTileArr:
+    - {fileID: 4345514000793594774}
+    - {fileID: 4345514001475041993}
+    - {fileID: 4345514001196708010}
+  verticalTileStructArr:
+  - sudokuTileArr:
+    - {fileID: 4345514001319724120}
+    - {fileID: 4345514001339922672}
+    - {fileID: 4345514000793594774}
+  - sudokuTileArr:
+    - {fileID: 4345514001227038130}
+    - {fileID: 4345514001388944096}
+    - {fileID: 4345514001475041993}
+  - sudokuTileArr:
+    - {fileID: 4345514000338249525}
+    - {fileID: 4345514000924662298}
+    - {fileID: 4345514001196708010}
+--- !u!1001 &8849051696059711361
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1092941218609674160}
+    m_TransformParent: {fileID: 3994094894180257231}
     m_Modifications:
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: currSudokuBox
+      value: 
+      objectReference: {fileID: 7855283711637736333}
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: sudokuTileId.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6744676324022151203, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
       propertyPath: m_Name
-      value: Tile (6)
+      value: Tile (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151203, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
       propertyPath: m_Pivot.x
@@ -184,7 +246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
       propertyPath: m_AnchorMax.x
@@ -280,144 +342,45 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
---- !u!224 &2238512051494805881 stripped
+--- !u!224 &2834948636933560229 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-  m_PrefabInstance: {fileID: 4794413546686679389}
+  m_PrefabInstance: {fileID: 8849051696059711361}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &4794413547092490449
+--- !u!114 &4345514000338249525 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+  m_PrefabInstance: {fileID: 8849051696059711361}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1861baaf7f84d6f4baeceec1608c8b5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &8849051696677954822
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1092941218609674160}
+    m_TransformParent: {fileID: 3994094894180257231}
     m_Modifications:
-    - target: {fileID: 6744676324022151203, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_Name
-      value: Tile (5)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_RootOrder
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_LocalRotation.w
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: currSudokuBox
+      value: 
+      objectReference: {fileID: 7855283711637736333}
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: sudokuTileId.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676325046573742, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_Color.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676325046573742, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_Color.g
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6744676325046573742, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_Color.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7845834451927762712, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_EffectDistance.x
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7845834451927762712, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-      propertyPath: m_EffectDistance.y
-      value: 5
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
---- !u!224 &2238512051894309109 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-  m_PrefabInstance: {fileID: 4794413547092490449}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &4794413547193032569
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1092941218609674160}
-    m_Modifications:
     - target: {fileID: 6744676324022151203, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
       propertyPath: m_Name
       value: Tile (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151203, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -524,22 +487,41 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
---- !u!224 &2238512051927463773 stripped
+--- !u!224 &2834948635406191906 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-  m_PrefabInstance: {fileID: 4794413547193032569}
+  m_PrefabInstance: {fileID: 8849051696677954822}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &4794413547221902995
+--- !u!114 &4345514001227038130 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+  m_PrefabInstance: {fileID: 8849051696677954822}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1861baaf7f84d6f4baeceec1608c8b5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &8849051696705772780
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1092941218609674160}
+    m_TransformParent: {fileID: 3994094894180257231}
     m_Modifications:
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: currSudokuBox
+      value: 
+      objectReference: {fileID: 7855283711637736333}
     - target: {fileID: 6744676324022151203, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
       propertyPath: m_Name
       value: Tile
       objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151203, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -646,21 +628,52 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
---- !u!224 &2238512052021268151 stripped
+--- !u!224 &2834948635498968264 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-  m_PrefabInstance: {fileID: 4794413547221902995}
+  m_PrefabInstance: {fileID: 8849051696705772780}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &4794413547357311585
+--- !u!114 &4345514001319724120 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+  m_PrefabInstance: {fileID: 8849051696705772780}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1861baaf7f84d6f4baeceec1608c8b5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &8849051696849086494
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1092941218609674160}
+    m_TransformParent: {fileID: 3994094894180257231}
     m_Modifications:
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: sudokuTileId
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: currSudokuBox
+      value: 
+      objectReference: {fileID: 7855283711637736333}
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: sudokuTileId.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: sudokuTileId.y
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6744676324022151203, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
       propertyPath: m_Name
       value: Tile (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151203, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
       propertyPath: m_Pivot.x
@@ -768,21 +781,52 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
---- !u!224 &2238512052167408197 stripped
+--- !u!224 &2834948635636138042 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-  m_PrefabInstance: {fileID: 4794413547357311585}
+  m_PrefabInstance: {fileID: 8849051696849086494}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &4794413547469314050
+--- !u!114 &4345514001196708010 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+  m_PrefabInstance: {fileID: 8849051696849086494}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1861baaf7f84d6f4baeceec1608c8b5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &8849051696928055933
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1092941218609674160}
+    m_TransformParent: {fileID: 3994094894180257231}
     m_Modifications:
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: sudokuTileId
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: currSudokuBox
+      value: 
+      objectReference: {fileID: 7855283711637736333}
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: sudokuTileId.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: sudokuTileId.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6744676324022151203, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
       propertyPath: m_Name
       value: Tile (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151203, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
       propertyPath: m_Pivot.x
@@ -890,21 +934,52 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
---- !u!224 &2238512052210069542 stripped
+--- !u!224 &2834948635645774425 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-  m_PrefabInstance: {fileID: 4794413547469314050}
+  m_PrefabInstance: {fileID: 8849051696928055933}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &4794413547551152171
+--- !u!114 &4345514001475041993 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+  m_PrefabInstance: {fileID: 8849051696928055933}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1861baaf7f84d6f4baeceec1608c8b5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &8849051697043415636
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1092941218609674160}
+    m_TransformParent: {fileID: 3994094894180257231}
     m_Modifications:
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: sudokuTileId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: currSudokuBox
+      value: 
+      objectReference: {fileID: 7855283711637736333}
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: sudokuTileId.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: sudokuTileId.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6744676324022151203, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
       propertyPath: m_Name
       value: Tile (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151203, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
       propertyPath: m_Pivot.x
@@ -1024,21 +1099,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
---- !u!224 &2238512052358918159 stripped
+--- !u!224 &2834948635828210288 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-  m_PrefabInstance: {fileID: 4794413547551152171}
+  m_PrefabInstance: {fileID: 8849051697043415636}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &4794413547600173627
+--- !u!114 &4345514001388944096 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+  m_PrefabInstance: {fileID: 8849051697043415636}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1861baaf7f84d6f4baeceec1608c8b5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &8849051697059405892
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1092941218609674160}
+    m_TransformParent: {fileID: 3994094894180257231}
     m_Modifications:
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: sudokuTileId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: currSudokuBox
+      value: 
+      objectReference: {fileID: 7855283711637736333}
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: sudokuTileId.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6744676324022151203, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
       propertyPath: m_Name
       value: Tile (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151203, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
       propertyPath: m_Pivot.x
@@ -1146,21 +1248,48 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
---- !u!224 &2238512052342927903 stripped
+--- !u!224 &2834948635779188832 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-  m_PrefabInstance: {fileID: 4794413547600173627}
+  m_PrefabInstance: {fileID: 8849051697059405892}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &4794413548756829694
+--- !u!114 &4345514001339922672 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+  m_PrefabInstance: {fileID: 8849051697059405892}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1861baaf7f84d6f4baeceec1608c8b5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &8849051697253249826
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1092941218609674160}
+    m_TransformParent: {fileID: 3994094894180257231}
     m_Modifications:
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: sudokuTileId
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: currSudokuBox
+      value: 
+      objectReference: {fileID: 7855283711637736333}
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: sudokuTileId.x
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6744676324022151203, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
       propertyPath: m_Name
-      value: Tile (2)
+      value: Tile (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151203, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
       propertyPath: m_Pivot.x
@@ -1172,7 +1301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1268,8 +1397,172 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
---- !u!224 &2238512051341979098 stripped
+--- !u!224 &2834948636038339334 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
-  m_PrefabInstance: {fileID: 4794413548756829694}
+  m_PrefabInstance: {fileID: 8849051697253249826}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4345514000793594774 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+  m_PrefabInstance: {fileID: 8849051697253249826}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1861baaf7f84d6f4baeceec1608c8b5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &8849051697650647726
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3994094894180257231}
+    m_Modifications:
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: sudokuTileId
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: currSudokuBox
+      value: 
+      objectReference: {fileID: 7855283711637736333}
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: sudokuTileId.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: sudokuTileId.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151203, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_Name
+      value: Tile (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151203, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676325046573742, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676325046573742, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744676325046573742, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7845834451927762712, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_EffectDistance.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7845834451927762712, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+      propertyPath: m_EffectDistance.y
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+--- !u!224 &2834948636446239370 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6744676324022151204, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+  m_PrefabInstance: {fileID: 8849051697650647726}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4345514000924662298 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: -4143179339270121292, guid: 442be13e7b188964fbbaf88c5078c330, type: 3}
+  m_PrefabInstance: {fileID: 8849051697650647726}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1861baaf7f84d6f4baeceec1608c8b5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

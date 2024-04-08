@@ -81,7 +81,7 @@ namespace YugantLoyaLibrary.CrossWordGenerator
 
         private void PlaceWords(List<string> words)
         {
-            bool startingBoxUsed = false;
+            //bool startingBoxUsed = false;
 
             foreach (string word in words)
             {

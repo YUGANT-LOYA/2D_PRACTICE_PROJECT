@@ -7,5 +7,13 @@ namespace YugantLoyaLibrary.SudokuSolver
     public class SudokuSolver : MonoBehaviour
     {
         
+
+        public void FillSudoku()
+        {
+            
+        }
+        
+        
+        
     }
 }
