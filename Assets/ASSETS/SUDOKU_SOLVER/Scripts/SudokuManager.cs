@@ -53,7 +53,36 @@ namespace YugantLoyaLibrary.SudokuSolver
 
         private void Start()
         {
-            
+        }
+
+        public int[][] GetAllDataOfSudokuTiles()
+        {
+            int[] totalValArr = new int[81];
+            int totalValindex = 0;
+            foreach (SudokuBox sudokuBox in totalSudokuBoxesArr)
+            {
+                foreach (SudokuTile sudokuTile in sudokuBox.GetAllBoxTiles())
+                {
+                    totalValArr[totalValindex] = sudokuTile.TileVal;
+                    totalValindex++;
+                }
+            }
+
+
+            int[][] data = new int[9][];
+            int tempIndex = 0;
+            for (int i = 0; i < data.Length; i++)
+            {
+                data[i] = new int[9];
+
+                for (int j = 0; j < data[i].Length; j++)
+                {
+                    data[i][j] = totalValArr[tempIndex];
+                    tempIndex++;
+                }
+            }
+
+            return data;
         }
 
 
@@ -127,7 +156,7 @@ namespace YugantLoyaLibrary.SudokuSolver
         public bool CheckCondition(SudokuTile currTile)
         {
             Debug.Log($"Check Condition Entered !");
-            
+
             // Debug.Log(
             //     $"Check Condition Entered : {ValidateBoxCondition(currTile)} {ValidateHorizontalLineCondition(currTile)} {ValidateVerticalLineCondition(currTile)}");
 
@@ -144,7 +173,7 @@ namespace YugantLoyaLibrary.SudokuSolver
             currTile.TileVal = -1;
             return false;
         }
-        
+
         public bool ValidateBoxCondition(SudokuTile tile)
         {
             SudokuTile[] allBoxTileArr = tile.currSudokuBox.GetAllBoxTiles();
