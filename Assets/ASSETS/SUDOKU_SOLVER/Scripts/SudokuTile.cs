@@ -48,6 +48,8 @@ namespace YugantLoyaLibrary.SudokuSolver
             Debug.Log("Tile Selected : " + gameObject.name);
             SudokuManager.selectedTileEvent?.Invoke(this);
             HighlightTile();
+            
+            
         }
 
         public void OnTileDeselect()

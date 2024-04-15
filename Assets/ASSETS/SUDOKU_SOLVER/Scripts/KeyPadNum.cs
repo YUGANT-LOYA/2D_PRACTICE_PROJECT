@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace YugantLoyaLibrary.SudokuSolver
 {
@@ -8,7 +9,9 @@ namespace YugantLoyaLibrary.SudokuSolver
     {
         Action<int> _onKeyPadValueChange;
         public int keyNum;
+        public bool isClickAllowed = true;
         [SerializeField] TextMeshProUGUI keyPadText;
+        [SerializeField] private Button keyButton;
 
         public int KeyNum
         {
@@ -39,14 +42,27 @@ namespace YugantLoyaLibrary.SudokuSolver
 
         public void OnKeyClicked()
         {
-            if (SudokuManager.currSudokuTile == null) 
+            if (SudokuManager.currSudokuTile == null)
                 return;
 
             if (!SudokuManager.currSudokuTile.canBeChanged)
                 return;
-            
+
             SudokuManager.currSudokuTile.TileVal = KeyNum;
-            SudokuManager.checkConditionEvent?.Invoke(SudokuManager.currSudokuTile);
+
+            bool conditionStatus = false;
+            SudokuManager.checkConditionEvent?.Invoke(SudokuManager.currSudokuTile, out conditionStatus);
+
+            if (!conditionStatus)
+            {
+                SudokuManager.currSudokuTile.TileVal = -1;
+            }
+        }
+
+        public void SetButtonStatus(bool isActive)
+        {
+            keyButton.interactable = isActive;
+            isClickAllowed = isActive;
         }
     }
 }

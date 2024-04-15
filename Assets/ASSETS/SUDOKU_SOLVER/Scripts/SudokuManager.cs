@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -11,7 +13,7 @@ namespace YugantLoyaLibrary.SudokuSolver
         public SudokuTile testingTile;
         public static Action<SudokuTile> selectedTileEvent;
 
-        public delegate bool CheckConditionDelegate(SudokuTile tile);
+        public delegate void CheckConditionDelegate(SudokuTile tile, out bool conditionStatus);
 
         public static CheckConditionDelegate checkConditionEvent;
 
@@ -49,10 +51,6 @@ namespace YugantLoyaLibrary.SudokuSolver
             {
                 Destroy(gameObject);
             }
-        }
-
-        private void Start()
-        {
         }
 
         public int[][] GetAllDataOfSudokuTiles()
@@ -93,6 +91,9 @@ namespace YugantLoyaLibrary.SudokuSolver
             //Update Current Selected Tile as currSudoku Tile.
             currSudokuTile = tile;
 
+            //Update the NumberPad Keys
+            UpdateNumberPadKeys();
+
             //Debug.Log("Curr Tile : " + currSudokuTile.gameObject.name);
 
             //Condition : Only when we start selecting tile for the first time, when lastSudoku Tile is Empty.
@@ -102,6 +103,23 @@ namespace YugantLoyaLibrary.SudokuSolver
             //Debug.Log("Last Tile : " + _lastSudokuTile.gameObject.name);
 
             _lastSudokuTile.OnTileDeselect();
+        }
+
+        private void UpdateNumberPadKeys()
+        {
+            int[] usefulValueArr = GetUsefulKeyValue(currSudokuTile);
+            Debug.Log("Useful Val Arr Count : " + usefulValueArr.Length);
+            NumberPadManager.instance.UpdateNumberKeys(usefulValueArr);
+        }
+
+        public int FindRowNumber(SudokuTile tile)
+        {
+            return tile.currSudokuBox.sudokuBoxId.x * 3 + tile.sudokuTileId.x;
+        }
+
+        public int FindColumnNumber(SudokuTile tile)
+        {
+            return tile.currSudokuBox.sudokuBoxId.y * 3 + tile.sudokuTileId.y;
         }
 
         public SudokuTile[] GetSudokuRow(int rowNum)
@@ -153,7 +171,7 @@ namespace YugantLoyaLibrary.SudokuSolver
         }
 
 
-        public bool CheckCondition(SudokuTile currTile)
+        private void CheckCondition(SudokuTile currTile, out bool conditionStatus)
         {
             Debug.Log($"Check Condition Entered !");
 
@@ -165,16 +183,15 @@ namespace YugantLoyaLibrary.SudokuSolver
                 ValidateVerticalLineCondition(currTile))
             {
                 Debug.Log("Condition True");
-                return true;
+                conditionStatus = true;
+                return;
             }
 
             Debug.Log("Condition False");
-            //Current Tile Cannot have the Value the user provided, that is the reason we are reverting the value to Empty.
-            currTile.TileVal = -1;
-            return false;
+            conditionStatus = false;
         }
 
-        public bool ValidateBoxCondition(SudokuTile tile)
+        private bool ValidateBoxCondition(SudokuTile tile)
         {
             SudokuTile[] allBoxTileArr = tile.currSudokuBox.GetAllBoxTiles();
 
@@ -192,10 +209,10 @@ namespace YugantLoyaLibrary.SudokuSolver
             return true;
         }
 
-        public bool ValidateHorizontalLineCondition(SudokuTile tile)
+        private bool ValidateHorizontalLineCondition(SudokuTile tile)
         {
-            int rowNum = tile.currSudokuBox.sudokuBoxId.x * 3 + tile.sudokuTileId.x;
-            //Debug.Log("Row Num : " + rowNum);
+            int rowNum = FindRowNumber(tile);
+            Debug.Log("Row Number : " + rowNum);
 
             SudokuTile[] tempTileArr = GetSudokuRow(rowNum);
 
@@ -213,10 +230,10 @@ namespace YugantLoyaLibrary.SudokuSolver
             return true;
         }
 
-        public bool ValidateVerticalLineCondition(SudokuTile tile)
+        private bool ValidateVerticalLineCondition(SudokuTile tile)
         {
-            int colNum = tile.currSudokuBox.sudokuBoxId.y * 3 + tile.sudokuTileId.y;
-            //Debug.Log("Col Num : " + colNum);
+            int colNum = FindColumnNumber(tile);
+            Debug.Log("Col Number : " + colNum);
 
             SudokuTile[] tempTileArr = GetSudokuColumn(colNum);
 
@@ -232,6 +249,119 @@ namespace YugantLoyaLibrary.SudokuSolver
             }
 
             return true;
+        }
+
+        int[] GetMissingValuesInBox(SudokuTile tile)
+        {
+            List<int> missingValArr = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+            SudokuTile[] allBoxTileArr = tile.currSudokuBox.GetAllBoxTiles();
+
+            for (int index = allBoxTileArr.Length - 1; index >= 0; index--)
+            {
+                SudokuTile sudokuTile = allBoxTileArr[index];
+
+                if (sudokuTile == tile)
+                    continue;
+
+                if (missingValArr.Contains(sudokuTile.TileVal))
+                {
+                    missingValArr.Remove(sudokuTile.TileVal);
+                }
+            }
+
+            foreach (int key in missingValArr)
+            {
+                Debug.Log("Box Missing Values " + key);
+            }
+
+
+            Debug.Log("Box Missing Count : " + missingValArr.Count);
+            return missingValArr.ToArray();
+        }
+
+        int[] GetMissingValuesInRow(SudokuTile tile)
+        {
+            List<int> missingValArr = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+            int rowNum = FindRowNumber(tile);
+            //Debug.Log("Row Number : " + rowNum);
+
+            SudokuTile[] allHorizontalTileArr = GetSudokuRow(rowNum);
+
+            for (int index = allHorizontalTileArr.Length - 1; index >= 0; index--)
+            {
+                SudokuTile sudokuTile = allHorizontalTileArr[index];
+
+                if (sudokuTile == tile)
+                    continue;
+
+                if (missingValArr.Contains(sudokuTile.TileVal))
+                {
+                    missingValArr.Remove(sudokuTile.TileVal);
+                }
+            }
+
+            foreach (int key in missingValArr)
+            {
+                Debug.Log("Horizontal Missing Keys " + key);
+            }
+
+            Debug.Log("Row Missing Count : " + missingValArr.Count);
+            return missingValArr.ToArray();
+        }
+
+        int[] GetMissingValuesInColumn(SudokuTile tile)
+        {
+            List<int> missingValArr = new List<int> { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+            int colNum = FindColumnNumber(tile);
+            //Debug.Log("Col Number : " + rowNum);
+
+            SudokuTile[] allVerticalTileArr = GetSudokuColumn(colNum);
+
+            for (int index = allVerticalTileArr.Length - 1; index >= 0; index--)
+            {
+                SudokuTile sudokuTile = allVerticalTileArr[index];
+
+                if (sudokuTile == tile)
+                    continue;
+
+                if (missingValArr.Contains(sudokuTile.TileVal))
+                {
+                    missingValArr.Remove(sudokuTile.TileVal);
+                }
+            }
+
+            foreach (int key in missingValArr)
+            {
+                Debug.Log("Vertical Missing Val " + key);
+            }
+
+            Debug.Log("Col Missing Count : " + missingValArr.Count);
+            return missingValArr.ToArray();
+        }
+
+        public int[] GetUsefulKeyValue(SudokuTile tile)
+        {
+            Debug.Log("Tile : " + tile.gameObject.name, tile.gameObject);
+
+            int[] sudokuBoxArr = GetMissingValuesInBox(tile);
+            int[] sudokuHorizontalArr = GetMissingValuesInRow(tile);
+            int[] sudokuVerticalArr = GetMissingValuesInColumn(tile);
+
+            List<int> tempSetArr = sudokuBoxArr.Intersect(sudokuHorizontalArr).ToList();
+            List<int> finalSetArr = tempSetArr.Intersect(sudokuVerticalArr).ToList();
+
+            //Remember to add the value use for the Clear Button
+            finalSetArr.Add(-1);
+
+            foreach (int key in finalSetArr)
+            {
+                Debug.Log("Useful Keys : " + key);
+            }
+
+            return finalSetArr.ToArray();
         }
     }
 }

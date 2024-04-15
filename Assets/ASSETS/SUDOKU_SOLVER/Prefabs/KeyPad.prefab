@@ -52,6 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keyNum: 0
   keyPadText: {fileID: 8417703613950165387}
+  keyButton: {fileID: 9055813783188364931}
 --- !u!1 &794086682422988154
 GameObject:
   m_ObjectHideFlags: 0
