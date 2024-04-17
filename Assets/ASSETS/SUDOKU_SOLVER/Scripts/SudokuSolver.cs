@@ -8,8 +8,10 @@ namespace YugantLoyaLibrary.SudokuSolver
 {
     public class SudokuSolver : MonoBehaviour
     {
+        [SerializeField] private float waitTimeForEachGrid = 0.05f;
+
         [Button]
-        public void FillSudoku()
+        public void FillSudokuFast()
         {
             if (!Application.isPlaying)
             {
@@ -34,7 +36,7 @@ namespace YugantLoyaLibrary.SudokuSolver
                 }
             }
 
-            if (Solve(solution))
+            if (SolveFast(solution))
             {
                 Debug.Log("Answer Found !");
                 SudokuManager.instance.FillSudokuValues(solution);
@@ -45,7 +47,7 @@ namespace YugantLoyaLibrary.SudokuSolver
             }
         }
 
-        private static bool Solve(int[][] grid)
+        private static bool SolveFast(int[][] grid)
         {
             int row, col;
             if (!FindEmptyLocation(grid, out row, out col))
@@ -59,17 +61,99 @@ namespace YugantLoyaLibrary.SudokuSolver
                 {
                     grid[row][col] = num;
 
-                    if (Solve(grid))
+                    if (SolveFast(grid))
                     {
+                        SudokuManager.instance.FillSingleValue(row, col, num);
                         return true;
                     }
 
                     grid[row][col] = 0; // Undo the assignment and try again
+
+                    SudokuManager.instance.FillSingleValue(row, col, num);
                 }
             }
 
             return false; // Backtrack
         }
+
+        public void FillSudokuSlow()
+        {
+            //StartCoroutine(FillSlow());
+            FillSlow();
+        }
+
+        private void FillSlow()
+        {
+            if (!Application.isPlaying)
+            {
+                Debug.LogError("Only Runs when Game is in Playing State !");
+                return;
+            }
+
+            int[][] puzzle = SudokuManager.instance.GetAllDataOfSudokuTiles();
+
+            if (puzzle.Length != 9 || puzzle[0].Length != 9)
+            {
+                Debug.LogError("Invalid puzzle size. Expected a 9x9 grid.");
+                return;
+            }
+
+            int[][] solution = new int[9][];
+            for (int i = 0; i < 9; i++)
+            {
+                solution[i] = new int[9];
+                for (int j = 0; j < 9; j++)
+                {
+                    solution[i][j] = puzzle[i][j];
+                }
+            }
+            
+            using (IEnumerator<bool> solver = SolveSlow(solution).GetEnumerator())
+            {
+                while (solver.MoveNext())
+                {
+                    if (solver.Current)
+                    {
+                        Debug.Log("Answer Found !");
+                        SudokuManager.instance.FillSudokuValues(solution);
+                        return;
+                    }
+                }
+            }
+            
+            Debug.LogError("No solution exists for the given puzzle.");
+        }
+
+        private IEnumerable<bool> SolveSlow(int[][] grid)
+        {
+            int row, col;
+            if (!FindEmptyLocation(grid, out row, out col))
+            {
+                yield return true; // Puzzle solved
+                yield break;
+                
+            }
+
+            for (int num = 1; num <= 9; num++)
+            {
+                if (IsSafe(grid, row, col, num))
+                {
+                    grid[row][col] = num;
+                    
+                    foreach (var result in SolveSlow(grid))
+                    {
+                        yield return result;
+                    }
+
+                    grid[row][col] = 0; // Undo the assignment and try again
+                    yield return false; // Introduce a delay
+                }
+                
+            }
+
+            yield return false; // Backtrack
+        }
+
 
         private static bool FindEmptyLocation(int[][] grid, out int row, out int col)
         {

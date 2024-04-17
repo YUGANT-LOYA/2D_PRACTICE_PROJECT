@@ -359,7 +359,7 @@ namespace YugantLoyaLibrary.SudokuSolver
 
             //Remember to add the value use for the Clear Button
             finalSetArr.Add(0);
-            
+
             // foreach (int key in finalSetArr)
             // {
             //     Debug.Log("Useful Keys : " + key);
@@ -380,11 +380,24 @@ namespace YugantLoyaLibrary.SudokuSolver
                     SudokuTile tile = rowTiles[index];
 
                     if (!tile.canBeChanged) continue;
-                    
+
                     tile.TileVal = solutionArr[i][index];
                     tile.SolutionFontColor();
                 }
             }
+        }
+
+        public void FillSingleValue(int row, int col, int val)
+        {
+            SudokuTile[] rowTiles = GetSudokuRow(row);
+
+            SudokuTile tile = rowTiles[col];
+
+            if (!tile.canBeChanged)
+                return;
+
+            tile.TileVal = val;
+            tile.SolutionFontColor();
         }
     }
 }
