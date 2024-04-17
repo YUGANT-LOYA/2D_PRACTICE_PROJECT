@@ -10,7 +10,6 @@ namespace YugantLoyaLibrary.SudokuSolver
     {
         [SerializeField] private float waitTimeForEachGrid = 0.05f;
 
-        [Button]
         public void FillSudokuFast()
         {
             if (!Application.isPlaying)
@@ -78,7 +77,6 @@ namespace YugantLoyaLibrary.SudokuSolver
 
         public void FillSudokuSlow()
         {
-            //StartCoroutine(FillSlow());
             FillSlow();
         }
 

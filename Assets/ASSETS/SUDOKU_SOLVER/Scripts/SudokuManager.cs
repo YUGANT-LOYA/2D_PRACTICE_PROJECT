@@ -53,6 +53,40 @@ namespace YugantLoyaLibrary.SudokuSolver
             }
         }
 
+        public void ClearCurrentSudoku()
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                SudokuTile[] tiles = GetSudokuRow(i);
+
+                foreach (SudokuTile tile in tiles)
+                {
+                    if (!tile.canBeChanged)
+                        continue;
+
+                    tile.TileVal = 0;
+                }
+            }
+        }
+
+        public void GenerateEmptySudoku()
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                SudokuTile[] tiles = GetSudokuRow(i);
+
+                foreach (SudokuTile tile in tiles)
+                {
+                    if (!tile.canBeChanged)
+                    {
+                        tile.canBeChanged = true;
+                    }
+
+                    tile.TileVal = 0;
+                }
+            }
+        }
+
         public int[][] GetAllDataOfSudokuTiles()
         {
             int[] totalValArr = new int[81];
@@ -62,9 +96,9 @@ namespace YugantLoyaLibrary.SudokuSolver
             {
                 SudokuTile[] tiles = GetSudokuRow(i);
 
-                foreach (SudokuTile val in tiles)
+                foreach (SudokuTile tile in tiles)
                 {
-                    totalValArr[totalValindex] = val.TileVal;
+                    totalValArr[totalValindex] = tile.TileVal;
                     totalValindex++;
                 }
             }
