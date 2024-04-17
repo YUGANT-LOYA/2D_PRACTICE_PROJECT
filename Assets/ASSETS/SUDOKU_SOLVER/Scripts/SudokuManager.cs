@@ -57,11 +57,14 @@ namespace YugantLoyaLibrary.SudokuSolver
         {
             int[] totalValArr = new int[81];
             int totalValindex = 0;
-            foreach (SudokuBox sudokuBox in totalSudokuBoxesArr)
+
+            for (int i = 0; i < 9; i++)
             {
-                foreach (SudokuTile sudokuTile in sudokuBox.GetAllBoxTiles())
+                SudokuTile[] tiles = GetSudokuRow(i);
+
+                foreach (SudokuTile val in tiles)
                 {
-                    totalValArr[totalValindex] = sudokuTile.TileVal;
+                    totalValArr[totalValindex] = val.TileVal;
                     totalValindex++;
                 }
             }
@@ -76,6 +79,7 @@ namespace YugantLoyaLibrary.SudokuSolver
                 for (int j = 0; j < data[i].Length; j++)
                 {
                     data[i][j] = totalValArr[tempIndex];
+                    //Debug.Log($"Data [{i}][{j}] : {data[i][j]} ");
                     tempIndex++;
                 }
             }
@@ -105,10 +109,10 @@ namespace YugantLoyaLibrary.SudokuSolver
             _lastSudokuTile.OnTileDeselect();
         }
 
-        private void UpdateNumberPadKeys()
+        public void UpdateNumberPadKeys()
         {
             int[] usefulValueArr = GetUsefulKeyValue(currSudokuTile);
-            Debug.Log("Useful Val Arr Count : " + usefulValueArr.Length);
+            //Debug.Log("Useful Val Arr Count : " + usefulValueArr.Length);
             NumberPadManager.instance.UpdateNumberKeys(usefulValueArr);
         }
 
@@ -173,7 +177,7 @@ namespace YugantLoyaLibrary.SudokuSolver
 
         private void CheckCondition(SudokuTile currTile, out bool conditionStatus)
         {
-            Debug.Log($"Check Condition Entered !");
+            //Debug.Log($"Check Condition Entered !");
 
             // Debug.Log(
             //     $"Check Condition Entered : {ValidateBoxCondition(currTile)} {ValidateHorizontalLineCondition(currTile)} {ValidateVerticalLineCondition(currTile)}");
@@ -182,12 +186,12 @@ namespace YugantLoyaLibrary.SudokuSolver
             if (ValidateBoxCondition(currTile) && ValidateHorizontalLineCondition(currTile) &&
                 ValidateVerticalLineCondition(currTile))
             {
-                Debug.Log("Condition True");
+                //Debug.Log("Condition True");
                 conditionStatus = true;
                 return;
             }
 
-            Debug.Log("Condition False");
+            //Debug.Log("Condition False");
             conditionStatus = false;
         }
 
@@ -212,7 +216,7 @@ namespace YugantLoyaLibrary.SudokuSolver
         private bool ValidateHorizontalLineCondition(SudokuTile tile)
         {
             int rowNum = FindRowNumber(tile);
-            Debug.Log("Row Number : " + rowNum);
+            //Debug.Log("Row Number : " + rowNum);
 
             SudokuTile[] tempTileArr = GetSudokuRow(rowNum);
 
@@ -233,7 +237,7 @@ namespace YugantLoyaLibrary.SudokuSolver
         private bool ValidateVerticalLineCondition(SudokuTile tile)
         {
             int colNum = FindColumnNumber(tile);
-            Debug.Log("Col Number : " + colNum);
+            //Debug.Log("Col Number : " + colNum);
 
             SudokuTile[] tempTileArr = GetSudokuColumn(colNum);
 
@@ -270,13 +274,13 @@ namespace YugantLoyaLibrary.SudokuSolver
                 }
             }
 
-            foreach (int key in missingValArr)
-            {
-                Debug.Log("Box Missing Values " + key);
-            }
+            // foreach (int key in missingValArr)
+            // {
+            //     Debug.Log("Box Missing Values " + key);
+            // }
 
 
-            Debug.Log("Box Missing Count : " + missingValArr.Count);
+            //Debug.Log("Box Missing Count : " + missingValArr.Count);
             return missingValArr.ToArray();
         }
 
@@ -302,12 +306,12 @@ namespace YugantLoyaLibrary.SudokuSolver
                 }
             }
 
-            foreach (int key in missingValArr)
-            {
-                Debug.Log("Horizontal Missing Keys " + key);
-            }
+            // foreach (int key in missingValArr)
+            // {
+            //     Debug.Log("Horizontal Missing Keys " + key);
+            // }
 
-            Debug.Log("Row Missing Count : " + missingValArr.Count);
+            //Debug.Log("Row Missing Count : " + missingValArr.Count);
             return missingValArr.ToArray();
         }
 
@@ -333,18 +337,18 @@ namespace YugantLoyaLibrary.SudokuSolver
                 }
             }
 
-            foreach (int key in missingValArr)
-            {
-                Debug.Log("Vertical Missing Val " + key);
-            }
+            // foreach (int key in missingValArr)
+            // {
+            //     Debug.Log("Vertical Missing Val " + key);
+            // }
 
-            Debug.Log("Col Missing Count : " + missingValArr.Count);
+            //Debug.Log("Col Missing Count : " + missingValArr.Count);
             return missingValArr.ToArray();
         }
 
-        public int[] GetUsefulKeyValue(SudokuTile tile)
+        private int[] GetUsefulKeyValue(SudokuTile tile)
         {
-            Debug.Log("Tile : " + tile.gameObject.name, tile.gameObject);
+            //Debug.Log("Tile : " + tile.gameObject.name, tile.gameObject);
 
             int[] sudokuBoxArr = GetMissingValuesInBox(tile);
             int[] sudokuHorizontalArr = GetMissingValuesInRow(tile);
@@ -354,14 +358,33 @@ namespace YugantLoyaLibrary.SudokuSolver
             List<int> finalSetArr = tempSetArr.Intersect(sudokuVerticalArr).ToList();
 
             //Remember to add the value use for the Clear Button
-            finalSetArr.Add(-1);
-
-            foreach (int key in finalSetArr)
-            {
-                Debug.Log("Useful Keys : " + key);
-            }
+            finalSetArr.Add(0);
+            
+            // foreach (int key in finalSetArr)
+            // {
+            //     Debug.Log("Useful Keys : " + key);
+            // }
 
             return finalSetArr.ToArray();
+        }
+
+
+        public void FillSudokuValues(int[][] solutionArr)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                SudokuTile[] rowTiles = GetSudokuRow(i);
+
+                for (int index = 0; index < rowTiles.Length; index++)
+                {
+                    SudokuTile tile = rowTiles[index];
+
+                    if (!tile.canBeChanged) continue;
+                    
+                    tile.TileVal = solutionArr[i][index];
+                    tile.SolutionFontColor();
+                }
+            }
         }
     }
 }

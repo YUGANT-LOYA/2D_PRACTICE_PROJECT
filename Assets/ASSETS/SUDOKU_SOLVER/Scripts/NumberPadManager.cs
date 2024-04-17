@@ -29,7 +29,7 @@ namespace YugantLoyaLibrary.SudokuSolver
         {
             foreach (KeyPadNum keyPadNum in allNumberKeyArr)
             {
-                Debug.Log($"Value {keyPadNum.KeyNum}  : {interactiveKeysArr.Contains(keyPadNum.KeyNum)}");
+                //Debug.Log($"Value {keyPadNum.KeyNum}  : {interactiveKeysArr.Contains(keyPadNum.KeyNum)}");
                 keyPadNum.SetButtonStatus(interactiveKeysArr.Contains(keyPadNum.KeyNum));
             }
         }

@@ -185,12 +185,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1861baaf7f84d6f4baeceec1608c8b5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sudokuTileId: {x: 0, y: 0}
   tileVal: 0
   canBeChanged: 1
+  currSudokuBox: {fileID: 0}
   tileText: {fileID: 2471770403917665885}
   tileOutline: {fileID: 7845834451927762712}
   defaultTileOutlineColor: {r: 0, g: 0, b: 0, a: 1}
   highlightTileOutlineColor: {r: 1, g: 0, b: 0, a: 1}
+  solutionFontColor: {r: 0, g: 0.320117, b: 1, a: 1}
+  defaultFontColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!1 &6744676325046573740
 GameObject:
   m_ObjectHideFlags: 0

@@ -55,7 +55,9 @@ namespace YugantLoyaLibrary.SudokuSolver
 
             if (!conditionStatus)
             {
-                SudokuManager.currSudokuTile.TileVal = -1;
+                SudokuManager.currSudokuTile.TileVal = 0;
+                //Update the NumberPad Keys
+                SudokuManager.instance.UpdateNumberPadKeys();
             }
         }
 

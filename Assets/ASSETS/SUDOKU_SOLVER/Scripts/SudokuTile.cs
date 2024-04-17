@@ -7,14 +7,14 @@ namespace YugantLoyaLibrary.SudokuSolver
 {
     public class SudokuTile : MonoBehaviour
     {
-        Action<int> _onTileValueChangeEvent; 
+        Action<int> _onTileValueChangeEvent;
         public Vector2Int sudokuTileId;
         public int tileVal;
         public bool canBeChanged;
         public SudokuBox currSudokuBox;
         [SerializeField] private TextMeshProUGUI tileText;
         [SerializeField] private Outline tileOutline;
-        public Color defaultTileOutlineColor, highlightTileOutlineColor;
+        public Color defaultTileOutlineColor, highlightTileOutlineColor, solutionFontColor,defaultFontColor;
 
         public int TileVal
         {
@@ -43,18 +43,26 @@ namespace YugantLoyaLibrary.SudokuSolver
             tileText.text = val is <= 9 and >= 1 ? tileVal.ToString() : "";
         }
 
+        public void SolutionFontColor()
+        {
+            tileText.color = solutionFontColor;
+        }
+
+        public void DefaultFontColor()
+        {
+            tileText.color = defaultFontColor;
+        }
+
         public void OnTileSelect()
         {
-            Debug.Log("Tile Selected : " + gameObject.name);
+            //Debug.Log("Tile Selected : " + gameObject.name);
             SudokuManager.selectedTileEvent?.Invoke(this);
             HighlightTile();
-            
-            
         }
 
         public void OnTileDeselect()
         {
-            Debug.Log("Tile Deselected : " + gameObject.name);
+            //Debug.Log("Tile Deselected : " + gameObject.name);
             SetDefaultTileColor();
         }
 
@@ -66,6 +74,11 @@ namespace YugantLoyaLibrary.SudokuSolver
         void SetDefaultTileColor()
         {
             tileOutline.effectColor = defaultTileOutlineColor;
+        }
+
+        public bool IsValidValue(int val)
+        {
+            return val is >= 1 and <= 9;
         }
     }
 }
