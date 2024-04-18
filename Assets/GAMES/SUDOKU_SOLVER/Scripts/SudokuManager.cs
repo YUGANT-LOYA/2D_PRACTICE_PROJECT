@@ -488,17 +488,18 @@ namespace YugantLoyaLibrary.SudokuSolver
         private int[] GetUsefulKeyValue(SudokuTile tile)
         {
             //Debug.Log("Tile : " + tile.gameObject.name, tile.gameObject);
-
-            int[] sudokuBoxArr = GetMissingValuesInBox(tile);
-            int[] sudokuHorizontalArr = GetMissingValuesInRow(tile);
-            int[] sudokuVerticalArr = GetMissingValuesInColumn(tile);
-
-            List<int> tempSetArr = sudokuBoxArr.Intersect(sudokuHorizontalArr).ToList();
-            List<int> finalSetArr = tempSetArr.Intersect(sudokuVerticalArr).ToList();
-
-            //Remember to add the value use for the Clear Button
+            List<int> finalSetArr = new List<int>();
+            
             if (tile.canBeChanged)
             {
+                int[] sudokuBoxArr = GetMissingValuesInBox(tile);
+                int[] sudokuHorizontalArr = GetMissingValuesInRow(tile);
+                int[] sudokuVerticalArr = GetMissingValuesInColumn(tile);
+
+                List<int> tempSetArr = sudokuBoxArr.Intersect(sudokuHorizontalArr).ToList();
+                finalSetArr = tempSetArr.Intersect(sudokuVerticalArr).ToList();
+
+                //Remember to add the value use for the Clear Button
                 finalSetArr.Add(0);
             }
             
