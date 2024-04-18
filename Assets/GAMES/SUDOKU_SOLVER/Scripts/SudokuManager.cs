@@ -2,15 +2,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace YugantLoyaLibrary.SudokuSolver
 {
     public class SudokuManager : MonoBehaviour
     {
         public static SudokuManager instance;
-        public int testingInt;
-        public SudokuTile testingTile;
+
+        public enum DifficultyLevelEnum
+        {
+            VeryEasy,
+            Easy,
+            Medium,
+            Hard,
+            Insane
+        }
+
+        [Serializable]
+        public struct ValueDifficultyStruct
+        {
+            public DifficultyLevelEnum difficultyEnum;
+            public int minValToFill;
+            public int maxValToFill;
+        }
+
+        public DifficultyLevelEnum currDifficultyState;
+
         public static Action<SudokuTile> selectedTileEvent;
 
         public delegate void CheckConditionDelegate(SudokuTile tile, out bool conditionStatus);
@@ -20,6 +37,7 @@ namespace YugantLoyaLibrary.SudokuSolver
         public static SudokuTile currSudokuTile;
         private static SudokuTile _lastSudokuTile;
 
+        public List<ValueDifficultyStruct> difficultyValueStructList;
         public SudokuBox[] totalSudokuBoxesArr;
         [SerializeField] private BoxStruct[] horizontalBoxStructArr, verticalBoxStructArr;
 
@@ -53,7 +71,31 @@ namespace YugantLoyaLibrary.SudokuSolver
             }
         }
 
-        public void ClearCurrentSudoku()
+        private void Start()
+        {
+            GenerateSudoku();
+        }
+
+        public void SetSudokuDifficulty(int difficultyVal)
+        {
+            currDifficultyState = (DifficultyLevelEnum)difficultyVal;
+        }
+
+        private int GetValueAccordingToDifficulty(DifficultyLevelEnum diffEnum)
+        {
+            foreach (ValueDifficultyStruct valueDifficultyStruct in difficultyValueStructList)
+            {
+                if (valueDifficultyStruct.difficultyEnum == diffEnum)
+                {
+                    return UnityEngine.Random.Range(valueDifficultyStruct.minValToFill,
+                        valueDifficultyStruct.maxValToFill);
+                }
+            }
+
+            return 0;
+        }
+
+        public void ResetSudoku()
         {
             for (int i = 0; i < 9; i++)
             {
@@ -69,7 +111,7 @@ namespace YugantLoyaLibrary.SudokuSolver
             }
         }
 
-        public void GenerateEmptySudoku()
+        public void ClearCompleteSudoku()
         {
             for (int i = 0; i < 9; i++)
             {
@@ -77,6 +119,8 @@ namespace YugantLoyaLibrary.SudokuSolver
 
                 foreach (SudokuTile tile in tiles)
                 {
+                    tile.DefaultFontColor();
+
                     if (!tile.canBeChanged)
                     {
                         tile.canBeChanged = true;
@@ -84,6 +128,67 @@ namespace YugantLoyaLibrary.SudokuSolver
 
                     tile.TileVal = 0;
                 }
+            }
+        }
+
+        public void GenerateSudoku()
+        {
+            int showValues = GetValueAccordingToDifficulty(currDifficultyState);
+            //Debug.Log("Show Val Count : " + showValues);
+
+            ClearCompleteSudoku();
+
+            int[][] puzzle = GetAllDataOfSudokuTiles();
+            FillSudoku(showValues, puzzle);
+
+            // for (var i = 0; i < finalGeneratedSudoku.Length; i++)
+            // {
+            //     int[] rows = finalGeneratedSudoku[i];
+            //
+            //     for (int j = 0; j < rows.Length; j++)
+            //     {
+            //         int val = rows[j];
+            //         Debug.Log($"{i} {j}  :  {val}");
+            //     }
+            // }
+
+            FillGeneratedSudokuValues(puzzle);
+        }
+
+        private void FillSudoku(int numberOfFilledCells, int[][] puzzle)
+        {
+            // Generate a complete Sudoku puzzle
+            if (!FillSudoku(puzzle))
+            {
+                Debug.LogError("Failed to generate a complete Sudoku puzzle.");
+            }
+
+            // Remove cells to achieve the desired difficulty level
+            RemoveCells(puzzle, 81 - numberOfFilledCells);
+        }
+
+        private bool FillSudoku(int[][] puzzle)
+        {
+            return SudokuSolver.instance.SolveFast(puzzle);
+        }
+
+        private void RemoveCells(int[][] puzzle, int cellsToRemove)
+        {
+            System.Random rand = new System.Random();
+
+            for (int i = 0; i < cellsToRemove; i++)
+            {
+                int row = rand.Next(0, 9);
+                int col = rand.Next(0, 9);
+
+                // Ensure that the cell is not already empty
+                while (puzzle[row][col] == 0)
+                {
+                    row = rand.Next(0, 9);
+                    col = rand.Next(0, 9);
+                }
+
+                puzzle[row][col] = 0;
             }
         }
 
@@ -392,8 +497,11 @@ namespace YugantLoyaLibrary.SudokuSolver
             List<int> finalSetArr = tempSetArr.Intersect(sudokuVerticalArr).ToList();
 
             //Remember to add the value use for the Clear Button
-            finalSetArr.Add(0);
-
+            if (tile.canBeChanged)
+            {
+                finalSetArr.Add(0);
+            }
+            
             // foreach (int key in finalSetArr)
             // {
             //     Debug.Log("Useful Keys : " + key);
@@ -402,8 +510,27 @@ namespace YugantLoyaLibrary.SudokuSolver
             return finalSetArr.ToArray();
         }
 
+        public void FillGeneratedSudokuValues(int[][] generatedArr)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                SudokuTile[] rowTiles = GetSudokuRow(i);
 
-        public void FillSudokuValues(int[][] solutionArr)
+                for (int index = 0; index < rowTiles.Length; index++)
+                {
+                    SudokuTile tile = rowTiles[index];
+                    tile.TileVal = generatedArr[i][index];
+                    tile.DefaultFontColor();
+                    
+                    if (tile.TileVal != 0)
+                    {
+                        tile.canBeChanged = false;
+                    }
+                }
+            }
+        }
+
+        public void FillSudokuSolutionValues(int[][] solutionArr)
         {
             for (int i = 0; i < 9; i++)
             {
