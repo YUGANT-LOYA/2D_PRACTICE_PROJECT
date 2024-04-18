@@ -29,6 +29,7 @@ namespace YugantLoyaLibrary.SudokuSolver
         public DifficultyLevelEnum currDifficultyState;
 
         public static Action<SudokuTile> selectedTileEvent;
+        public static Action deSelectTileEvent;
 
         public delegate void CheckConditionDelegate(SudokuTile tile, out bool conditionStatus);
 
@@ -51,12 +52,14 @@ namespace YugantLoyaLibrary.SudokuSolver
         {
             selectedTileEvent += CurrentSelectedTile;
             checkConditionEvent += CheckCondition;
+            deSelectTileEvent += ResetSelectedTile;
         }
 
         private void OnDisable()
         {
             selectedTileEvent -= CurrentSelectedTile;
             checkConditionEvent -= CheckCondition;
+            deSelectTileEvent -= ResetSelectedTile;
         }
 
         private void Awake()
@@ -97,6 +100,8 @@ namespace YugantLoyaLibrary.SudokuSolver
 
         public void ResetSudoku()
         {
+            DeSelectTile();
+            
             for (int i = 0; i < 9; i++)
             {
                 SudokuTile[] tiles = GetSudokuRow(i);
@@ -113,6 +118,8 @@ namespace YugantLoyaLibrary.SudokuSolver
 
         public void ClearCompleteSudoku()
         {
+            DeSelectTile();
+
             for (int i = 0; i < 9; i++)
             {
                 SudokuTile[] tiles = GetSudokuRow(i);
@@ -133,6 +140,8 @@ namespace YugantLoyaLibrary.SudokuSolver
 
         public void GenerateSudoku()
         {
+            DeSelectTile();
+
             int showValues = GetValueAccordingToDifficulty(currDifficultyState);
             //Debug.Log("Show Val Count : " + showValues);
 
@@ -203,7 +212,15 @@ namespace YugantLoyaLibrary.SudokuSolver
 
                 foreach (SudokuTile tile in tiles)
                 {
-                    totalValArr[totalValindex] = tile.TileVal;
+                    if (tile.canBeChanged)
+                    {
+                        totalValArr[totalValindex] = 0;
+                    }
+                    else
+                    {
+                        totalValArr[totalValindex] = tile.TileVal;
+                    }
+
                     totalValindex++;
                 }
             }
@@ -224,6 +241,23 @@ namespace YugantLoyaLibrary.SudokuSolver
             }
 
             return data;
+        }
+
+        void ResetSelectedTile()
+        {
+            NumberPadManager.instance.ResetNumberKeys();
+            
+            if (currSudokuTile == null)
+                return;
+
+            currSudokuTile.OnTileDeselect();
+            currSudokuTile = null;
+            NumberPadManager.instance.VisibilityStatusOfAllKeys(false);
+        }
+
+        public void DeSelectTile()
+        {
+            deSelectTileEvent?.Invoke();
         }
 
 
@@ -489,7 +523,7 @@ namespace YugantLoyaLibrary.SudokuSolver
         {
             //Debug.Log("Tile : " + tile.gameObject.name, tile.gameObject);
             List<int> finalSetArr = new List<int>();
-            
+
             if (tile.canBeChanged)
             {
                 int[] sudokuBoxArr = GetMissingValuesInBox(tile);
@@ -502,7 +536,7 @@ namespace YugantLoyaLibrary.SudokuSolver
                 //Remember to add the value use for the Clear Button
                 finalSetArr.Add(0);
             }
-            
+
             // foreach (int key in finalSetArr)
             // {
             //     Debug.Log("Useful Keys : " + key);
@@ -522,7 +556,7 @@ namespace YugantLoyaLibrary.SudokuSolver
                     SudokuTile tile = rowTiles[index];
                     tile.TileVal = generatedArr[i][index];
                     tile.DefaultFontColor();
-                    
+
                     if (tile.TileVal != 0)
                     {
                         tile.canBeChanged = false;

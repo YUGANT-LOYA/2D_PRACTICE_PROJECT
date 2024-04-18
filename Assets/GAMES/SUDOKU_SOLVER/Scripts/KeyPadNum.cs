@@ -45,7 +45,7 @@ namespace YugantLoyaLibrary.SudokuSolver
             if (SudokuManager.currSudokuTile == null)
                 return;
 
-            if (!SudokuManager.currSudokuTile.canBeChanged)
+            if (!SudokuManager.currSudokuTile.canBeChanged || !isClickAllowed)
                 return;
 
             SudokuManager.currSudokuTile.TileVal = KeyNum;
@@ -58,6 +58,10 @@ namespace YugantLoyaLibrary.SudokuSolver
                 SudokuManager.currSudokuTile.TileVal = 0;
                 //Update the NumberPad Keys
                 SudokuManager.instance.UpdateNumberPadKeys();
+            }
+            else
+            {
+                SudokuManager.currSudokuTile.SolutionFontColor();
             }
         }
 

@@ -1,15 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace YugantLoyaLibrary.SudokuSolver
 {
     public class SudokuSolver : MonoBehaviour
     {
         public static SudokuSolver instance;
-        
+
         [SerializeField] private float waitTimeForEachGrid = 0.02f;
-        public bool isSlowSolutionCancelled;
+        public bool isSlowSolutionRunning;
 
         private void Awake()
         {
@@ -22,38 +23,24 @@ namespace YugantLoyaLibrary.SudokuSolver
                 Destroy(gameObject);
             }
         }
-        
+
         public void CancelSlowSolution()
         {
-            isSlowSolutionCancelled = true;
-            
+            SudokuManager.instance.DeSelectTile();
+            isSlowSolutionRunning = false;
         }
-        
+
         static void ShuffleArray<T>(T[] array)
         {
             System.Random rand = new System.Random();
-            
+
             for (int i = array.Length - 1; i > 0; i--)
             {
                 int j = rand.Next(0, i + 1);
                 (array[i], array[j]) = (array[j], array[i]);
             }
         }
-        
-        void ShuffleList<T>(List<T> list)
-        {
-            System.Random rand = new System.Random();
-            
-            int n = list.Count;
-            
-            while (n > 1)
-            {
-                n--;
-                int k = rand.Next(n + 1);
-                (list[k], list[n]) = (list[n], list[k]);
-            }
-        }
-        
+
         public void FillSudokuFast()
         {
             if (!Application.isPlaying)
@@ -61,6 +48,8 @@ namespace YugantLoyaLibrary.SudokuSolver
                 Debug.LogError("Only Runs when Game is in Playing State !");
                 return;
             }
+
+            SudokuManager.instance.DeSelectTile();
 
             int[][] puzzle = SudokuManager.instance.GetAllDataOfSudokuTiles();
 
@@ -70,7 +59,7 @@ namespace YugantLoyaLibrary.SudokuSolver
             }
 
             int[][] solution = new int[9][];
-            
+
             for (int i = 0; i < 9; i++)
             {
                 solution[i] = new int[9];
@@ -98,14 +87,14 @@ namespace YugantLoyaLibrary.SudokuSolver
             {
                 return true; // Puzzle solved
             }
-            
+
             int[] numArr = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             ShuffleArray(numArr);
-            
+
             for (int index = 0; index < numArr.Length; index++)
             {
                 int num = numArr[index];
-                
+
                 if (IsSafe(grid, row, col, num))
                 {
                     grid[row][col] = num;
@@ -124,7 +113,7 @@ namespace YugantLoyaLibrary.SudokuSolver
 
             return false; // Backtrack
         }
-        
+
         public void FillSudokuSlow()
         {
             StartCoroutine(FillSlow());
@@ -138,8 +127,10 @@ namespace YugantLoyaLibrary.SudokuSolver
                 yield break;
             }
 
+            isSlowSolutionRunning = true;
+            SudokuManager.instance.DeSelectTile();
             SudokuUI.instance.SlowSolutionRunning();
-            
+
             int[][] puzzle = SudokuManager.instance.GetAllDataOfSudokuTiles();
 
             if (puzzle.Length != 9 || puzzle[0].Length != 9)
@@ -160,13 +151,13 @@ namespace YugantLoyaLibrary.SudokuSolver
 
             using (IEnumerator<bool> solver = SolveSlow(solution).GetEnumerator())
             {
-                while (solver.MoveNext() && !isSlowSolutionCancelled)
+                while (solver.MoveNext() && isSlowSolutionRunning)
                 {
                     if (solver.Current)
                     {
                         //Debug.Log("Answer Found !");
                         SudokuManager.instance.FillSudokuSolutionValues(solution);
-                        isSlowSolutionCancelled = false;
+                        isSlowSolutionRunning = false;
                         SudokuUI.instance.ResetAllButtons();
                         yield break;
                     }
@@ -174,11 +165,12 @@ namespace YugantLoyaLibrary.SudokuSolver
                     yield return new WaitForSeconds(waitTimeForEachGrid);
                 }
 
-                if (isSlowSolutionCancelled)
+                //When Solution is Stopped in between.
+                if (isSlowSolutionRunning)
                 {
-                    isSlowSolutionCancelled = false;
+                    isSlowSolutionRunning = false;
                     SudokuUI.instance.ResetAllButtons();
-                    SudokuManager.instance.FillSudokuSolutionValues(puzzle);
+                    SudokuManager.instance.ResetSudoku();
                     yield break;
                 }
             }
@@ -197,11 +189,11 @@ namespace YugantLoyaLibrary.SudokuSolver
 
             int[] numArr = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
             ShuffleArray(numArr);
-            
+
             for (int index = 0; index < numArr.Length; index++)
             {
                 int num = numArr[index];
-                
+
                 if (IsSafe(grid, row, col, num))
                 {
                     grid[row][col] = num;
@@ -213,7 +205,7 @@ namespace YugantLoyaLibrary.SudokuSolver
 
                     grid[row][col] = 0; // Undo the assignment and try again
                     SudokuManager.instance.FillSudokuSolutionValues(grid);
-                    
+
                     yield return false; // Introduce a delay
                 }
             }

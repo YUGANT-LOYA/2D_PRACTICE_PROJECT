@@ -55,6 +55,8 @@ namespace YugantLoyaLibrary.SudokuSolver
                     sudokuButtons.button.gameObject.SetActive(true);
                 }
             }
+            
+            NumberPadManager.instance.VisibilityStatusOfAllKeys(false);
         }
 
         public void ResetAllButtons()

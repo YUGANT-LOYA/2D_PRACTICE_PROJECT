@@ -25,6 +25,11 @@ namespace YugantLoyaLibrary.SudokuSolver
             }
         }
 
+        private void Start()
+        {
+            VisibilityStatusOfAllKeys(false);
+        }
+
         public void UpdateNumberKeys(int[] interactiveKeysArr)
         {
             foreach (KeyPadNum keyPadNum in allNumberKeyArr)
@@ -39,6 +44,14 @@ namespace YugantLoyaLibrary.SudokuSolver
             foreach (KeyPadNum keyPadNum in allNumberKeyArr)
             {
                 keyPadNum.SetButtonStatus(true);
+            }
+        }
+
+        public void VisibilityStatusOfAllKeys(bool isActive)
+        {
+            foreach (KeyPadNum keyPadNum in allNumberKeyArr)
+            {
+                keyPadNum.gameObject.SetActive(isActive);
             }
         }
     }

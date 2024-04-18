@@ -2709,7 +2709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waitTimeForEachGrid: 0.02
-  isSlowSolutionCancelled: 0
+  isSlowSolutionRunning: 0
 --- !u!114 &7617214132610929202
 MonoBehaviour:
   m_ObjectHideFlags: 0

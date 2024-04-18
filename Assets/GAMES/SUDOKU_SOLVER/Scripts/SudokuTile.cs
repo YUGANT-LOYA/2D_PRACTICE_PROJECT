@@ -14,7 +14,7 @@ namespace YugantLoyaLibrary.SudokuSolver
         public SudokuBox currSudokuBox;
         [SerializeField] private TextMeshProUGUI tileText;
         [SerializeField] private Outline tileOutline;
-        public Color defaultTileOutlineColor, highlightTileOutlineColor, solutionFontColor,defaultFontColor;
+        public Color defaultTileOutlineColor, highlightTileOutlineColor, solutionFontColor, defaultFontColor;
 
         public int TileVal
         {
@@ -55,7 +55,11 @@ namespace YugantLoyaLibrary.SudokuSolver
 
         public void OnTileSelect()
         {
+            if (SudokuSolver.instance.isSlowSolutionRunning)
+                return;
+            
             //Debug.Log("Tile Selected : " + gameObject.name);
+            NumberPadManager.instance.VisibilityStatusOfAllKeys(true);
             SudokuManager.selectedTileEvent?.Invoke(this);
             HighlightTile();
         }
