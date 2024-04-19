@@ -37,6 +37,7 @@ namespace YugantLoyaLibrary.SudokuSolver
 
         public static SudokuTile currSudokuTile;
         private static SudokuTile _lastSudokuTile;
+        [HideInInspector] public bool isCreatingOwnSudoku;
 
         public List<ValueDifficultyStruct> difficultyValueStructList;
         public SudokuBox[] totalSudokuBoxesArr;
@@ -101,7 +102,7 @@ namespace YugantLoyaLibrary.SudokuSolver
         public void ResetSudoku()
         {
             DeSelectTile();
-            
+
             for (int i = 0; i < 9; i++)
             {
                 SudokuTile[] tiles = GetSudokuRow(i);
@@ -116,8 +117,29 @@ namespace YugantLoyaLibrary.SudokuSolver
             }
         }
 
-        public void ClearCompleteSudoku()
+        public void ClearWholeSudoku()
         {
+            for (int i = 0; i < 9; i++)
+            {
+                SudokuTile[] tiles = GetSudokuRow(i);
+
+                foreach (SudokuTile tile in tiles)
+                {
+                    tile.DefaultFontColor();
+
+                    if (!tile.canBeChanged)
+                    {
+                        tile.canBeChanged = true;
+                    }
+
+                    tile.TileVal = 0;
+                }
+            }
+        }
+        
+        public void CreateYourOwnSudoku()
+        {
+            isCreatingOwnSudoku = true;
             DeSelectTile();
 
             for (int i = 0; i < 9; i++)
@@ -136,16 +158,75 @@ namespace YugantLoyaLibrary.SudokuSolver
                     tile.TileVal = 0;
                 }
             }
+            
+            SudokuUI.instance.SetButtonStatusOfButtonType(SudokuUI.ButtonType.CreateBoardButtonSet);
+
+        }
+        
+        public void SaveOwnCreatedSudoku()
+        {
+            isCreatingOwnSudoku = false;
+            
+            DeSelectTile();
+
+            for (int i = 0; i < 9; i++)
+            {
+                SudokuTile[] tiles = GetSudokuRow(i);
+
+                foreach (SudokuTile tile in tiles)
+                {
+                    tile.DefaultFontColor();
+                    
+                    if (tile.IsValidValue(tile.TileVal))
+                    {
+                        tile.canBeChanged = false;
+                    }
+                    else
+                    {
+                        tile.canBeChanged = true;
+                        tile.TileVal = 0;
+                    }
+                }
+            }
+
+            SudokuUI.instance.SetButtonStatusOfButtonType(SudokuUI.ButtonType.DefaultButtonSet);
         }
 
+        public void CancelYourSudokuCreation()
+        {
+            isCreatingOwnSudoku = false;
+            
+            DeSelectTile();
+
+            for (int i = 0; i < 9; i++)
+            {
+                SudokuTile[] tiles = GetSudokuRow(i);
+
+                foreach (SudokuTile tile in tiles)
+                {
+                    tile.DefaultFontColor();
+
+                    if (!tile.canBeChanged)
+                    {
+                        tile.canBeChanged = true;
+                    }
+
+                    tile.TileVal = 0;
+                }
+            }
+            
+            //SudokuUI.instance.SetButtonStatusOfButtonType(SudokuUI.ButtonType.DefaultButtonSet);
+            GenerateSudoku();
+        }
+        
         public void GenerateSudoku()
         {
             DeSelectTile();
-
+            SudokuUI.instance.SetButtonStatusOfButtonType(SudokuUI.ButtonType.DefaultButtonSet);
             int showValues = GetValueAccordingToDifficulty(currDifficultyState);
             //Debug.Log("Show Val Count : " + showValues);
 
-            ClearCompleteSudoku();
+            ClearWholeSudoku();
 
             int[][] puzzle = GetAllDataOfSudokuTiles();
             FillSudoku(showValues, puzzle);
@@ -246,7 +327,7 @@ namespace YugantLoyaLibrary.SudokuSolver
         void ResetSelectedTile()
         {
             NumberPadManager.instance.ResetNumberKeys();
-            
+
             if (currSudokuTile == null)
                 return;
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace YugantLoyaLibrary.SudokuSolver
@@ -12,20 +13,24 @@ namespace YugantLoyaLibrary.SudokuSolver
 
         public enum ButtonType
         {
-            Generate,
-            ClearCurrentSudoku,
-            EmptySudokuBoard,
-            FastSolution,
-            SlowSolution,
-            Cancel,
-            DifficultyButton
+            None,
+            DefaultButtonSet,
+            SlowSolutionButtonSet,
+            CreateBoardButtonSet,
         }
 
         [Serializable]
         public struct SudokuButtons
         {
             public ButtonType buttonType;
-            public GameObject button;
+            public List<UIButtonVisibleStruct> uiButtonVisibleStructList;
+        }
+
+        [Serializable]
+        public struct UIButtonVisibleStruct
+        {
+            public GameObject gmObj;
+            public bool isActive;
         }
 
         public List<SudokuButtons> sudokuButtonsList;
@@ -42,37 +47,20 @@ namespace YugantLoyaLibrary.SudokuSolver
             }
         }
 
-        public void SlowSolutionRunning()
+        public void SetButtonStatusOfButtonType(ButtonType buttonType)
         {
             foreach (SudokuButtons sudokuButtons in sudokuButtonsList)
             {
-                if (sudokuButtons.buttonType != ButtonType.Cancel)
+                if (sudokuButtons.buttonType == buttonType)
                 {
-                    sudokuButtons.button.gameObject.SetActive(false);
-                }
-                else if(sudokuButtons.buttonType == ButtonType.Cancel)
-                {
-                    sudokuButtons.button.gameObject.SetActive(true);
-                }
-            }
-            
-            NumberPadManager.instance.VisibilityStatusOfAllKeys(false);
-        }
-
-        public void ResetAllButtons()
-        {
-            foreach (SudokuButtons sudokuButtons in sudokuButtonsList)
-            {
-                if (sudokuButtons.buttonType != ButtonType.Cancel)
-                {
-                    sudokuButtons.button.gameObject.SetActive(true);
-                }
-                else if(sudokuButtons.buttonType == ButtonType.Cancel)
-                {
-                    sudokuButtons.button.gameObject.SetActive(false);
+                    foreach (UIButtonVisibleStruct button in sudokuButtons.uiButtonVisibleStructList)
+                    {
+                        button.gmObj.SetActive(button.isActive);
+                    }
+                    
+                    return;
                 }
             }
         }
-        
     }
 }

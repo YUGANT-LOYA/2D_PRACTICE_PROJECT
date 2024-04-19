@@ -129,7 +129,7 @@ namespace YugantLoyaLibrary.SudokuSolver
 
             isSlowSolutionRunning = true;
             SudokuManager.instance.DeSelectTile();
-            SudokuUI.instance.SlowSolutionRunning();
+            SudokuUI.instance.SetButtonStatusOfButtonType(SudokuUI.ButtonType.SlowSolutionButtonSet);
 
             int[][] puzzle = SudokuManager.instance.GetAllDataOfSudokuTiles();
 
@@ -158,7 +158,7 @@ namespace YugantLoyaLibrary.SudokuSolver
                         //Debug.Log("Answer Found !");
                         SudokuManager.instance.FillSudokuSolutionValues(solution);
                         isSlowSolutionRunning = false;
-                        SudokuUI.instance.ResetAllButtons();
+                        SudokuUI.instance.SetButtonStatusOfButtonType(SudokuUI.ButtonType.DefaultButtonSet);
                         yield break;
                     }
 
@@ -166,10 +166,10 @@ namespace YugantLoyaLibrary.SudokuSolver
                 }
 
                 //When Solution is Stopped in between.
-                if (isSlowSolutionRunning)
+                if (!isSlowSolutionRunning)
                 {
                     isSlowSolutionRunning = false;
-                    SudokuUI.instance.ResetAllButtons();
+                    SudokuUI.instance.SetButtonStatusOfButtonType(SudokuUI.ButtonType.DefaultButtonSet);
                     SudokuManager.instance.ResetSudoku();
                     yield break;
                 }
@@ -198,7 +198,7 @@ namespace YugantLoyaLibrary.SudokuSolver
                 {
                     grid[row][col] = num;
 
-                    foreach (var result in SolveSlow(grid))
+                    foreach (bool result in SolveSlow(grid))
                     {
                         yield return result;
                     }
