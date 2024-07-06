@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/GAMES/SUDOKU_SOLVER/Scenes/SudokuSolver.unity
-    guid: b9d7459c125bd6149b8e1e91f9418656
+    path: Assets/GAMES/2048/Scenes/2048.unity
+    guid: 058742c52e5936842b8c00294eddbde6
   m_configObjects: {}

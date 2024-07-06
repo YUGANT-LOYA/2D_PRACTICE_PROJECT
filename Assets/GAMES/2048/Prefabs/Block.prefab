@@ -48,7 +48,7 @@ MeshRenderer:
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -221,8 +221,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   value: 0
+  currBlockNode: {fileID: 0}
+  isMerging: 0
+  mergingBlock: {fileID: 0}
   spriteRenderer: {fileID: 642316971368302599}
   blockText: {fileID: 69489333}
+  mmPlayerFeedbacks: {fileID: 0}
 --- !u!1 &642316971368302598
 GameObject:
   m_ObjectHideFlags: 0

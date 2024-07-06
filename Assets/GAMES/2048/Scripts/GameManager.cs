@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -25,24 +27,27 @@ namespace YugantLoyaLibrary.Game2048
 
     public class GameManager : MonoBehaviour
     {
+        public static GameManager Instance;
         private Camera _cam;
         [SerializeField] private int width = 4, height = 4;
         [SerializeField] private Node nodePrefab;
         [SerializeField] private Block blockPrefab;
         [SerializeField] private SpriteRenderer boardSpriteRenderer;
+        [SerializeField] private float blockMovingTime = 0.4f,floatingTxtTime = 1f;
+        [SerializeField] private Ease blockMovingEase = Ease.InOutQuad;
         private List<Node> _nodesList;
         private List<Block> _blocksList;
         [SerializeField] private List<BlockType> blockTypeList;
-        [SerializeField] private GameState _currGameState;
+        public static GameState CurrGameState { get; private set; }
         private int currRound = 0;
 
         BlockType GetBlockTypeByValue(int val) => blockTypeList.First(type => type.value == val);
 
-        private void ChangeState(GameState newState)
+        public void ChangeState(GameState newState)
         {
-            _currGameState = newState;
+            CurrGameState = newState;
 
-            switch (_currGameState)
+            switch (CurrGameState)
             {
                 case GameState.GenerateLevel:
                     GenerateGrid();
@@ -59,12 +64,21 @@ namespace YugantLoyaLibrary.Game2048
                 case GameState.Lose:
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
             }
         }
 
         private void Awake()
         {
+            if (Instance == null)
+            {
+                Instance = this;
+            }
+            else if (Instance != this)
+            {
+                Destroy(gameObject);
+            }
+
             _cam = Camera.main;
         }
 
@@ -75,31 +89,40 @@ namespace YugantLoyaLibrary.Game2048
 
         private void Update()
         {
-            if (_currGameState != GameState.WaitingInput)
+            if (CurrGameState != GameState.WaitingInput)
                 return;
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
-            {
-                ShiftBlocks(Vector2.left);
-            }
-
-            if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                ShiftBlocks(Vector2.right);
-            }
-
-            if (Input.GetKeyDown(KeyCode.UpArrow))
-            {
-                ShiftBlocks(Vector2.up);
-            }
-
-            if (Input.GetKeyDown(KeyCode.DownArrow))
-            {
-                ShiftBlocks(Vector2.down);
-            }
+            // if (Input.GetKeyDown(KeyCode.LeftArrow))
+            // {
+            //     ShiftBlocks(Vector2.left);
+            // }
+            //
+            // if (Input.GetKeyDown(KeyCode.RightArrow))
+            // {
+            //     ShiftBlocks(Vector2.right);
+            // }
+            //
+            // if (Input.GetKeyDown(KeyCode.UpArrow))
+            // {
+            //     ShiftBlocks(Vector2.up);
+            // }
+            //
+            // if (Input.GetKeyDown(KeyCode.DownArrow))
+            // {
+            //     ShiftBlocks(Vector2.down);
+            // }
         }
 
-        private void ShiftBlocks(Vector2 dir)
+        void SpawnBlock(Node node, int val)
+        {
+            Debug.Log("Block Spawning");
+            Block block = Instantiate(blockPrefab, node.Pos, Quaternion.identity);
+            block.Init(GetBlockTypeByValue(val));
+            block.SetBlock(node);
+            _blocksList.Add(block);
+        }
+
+        public void ShiftBlocks(Vector2 dir)
         {
             ChangeState(GameState.Moving);
 
@@ -122,17 +145,74 @@ namespace YugantLoyaLibrary.Game2048
 
                     if (possibleNode != null)
                     {
-                        if (possibleNode.occupiedBlock == null)
+                        if (possibleNode.occupiedBlock != null && possibleNode.occupiedBlock.CanMerge(block.value))
+                        {
+                            block.MergeBlock(possibleNode.occupiedBlock);
+                        }
+                        else if (possibleNode.occupiedBlock == null)
                         {
                             nextNode = possibleNode;
                         }
                     }
                 } while (nextNode != block.currBlockNode);
 
-                block.transform.position = block.currBlockNode.Pos;
+
+                //block.PlayMoveEffect(block.currBlockNode);
             }
 
-            ChangeState(GameState.WaitingInput);
+            Sequence seq = DOTween.Sequence();
+
+            foreach (Block block in orderBlockList)
+            {
+                Vector3 movePoint = block.mergingBlock != null
+                    ? block.mergingBlock.currBlockNode.Pos
+                    : block.currBlockNode.Pos;
+                seq.Insert(0, block.transform.DOMove(movePoint, blockMovingTime).SetEase(blockMovingEase));
+            }
+
+            seq.OnComplete(() =>
+            {
+                foreach (Block block in orderBlockList.Where(temp => temp.mergingBlock != null))
+                {
+                    MergeBlock(block.mergingBlock, block);
+                    
+                    TextMeshPro floatingTxt = ObjectPoolSystem.Instance
+                        .GetObjectByType(PoolObjectType.FloatingText).GetComponent<TextMeshPro>();
+
+                    floatingTxt.text = (block.value * 2).ToString();
+
+                    if (floatingTxt.gameObject != null)
+                    {
+                        floatingTxt.transform.position = block.Pos;
+                        floatingTxt.transform.DOMoveY(floatingTxt.transform.position.y + 1.5f, floatingTxtTime);
+                        Color txtColor = floatingTxt.color;
+                        
+                        floatingTxt.DOFade(0f, floatingTxtTime).OnComplete(() =>
+                        {
+                            floatingTxt.color = txtColor;
+                            ObjectPoolSystem.Instance.ReturnToPool(PoolObjectType.FloatingText,
+                                floatingTxt.gameObject);
+                        });
+                    }
+                }
+
+                ChangeState(GameState.SpawningBlocks);
+            });
+
+            //ChangeState(GameState.WaitingInput); 
+        }
+
+        void MergeBlock(Block baseBlock, Block mergingBlock)
+        {
+            SpawnBlock(baseBlock.currBlockNode, baseBlock.value * 2);
+            RemoveBlock(baseBlock);
+            RemoveBlock(mergingBlock);
+        }
+
+        void RemoveBlock(Block block)
+        {
+            _blocksList.Remove(block);
+            Destroy(block.gameObject);
         }
 
         Node GetNodeAtPosition(Vector2 pos)
@@ -142,7 +222,7 @@ namespace YugantLoyaLibrary.Game2048
 
         void GenerateGrid()
         {
-            _currGameState = GameState.GenerateLevel;
+            CurrGameState = GameState.GenerateLevel;
             currRound = 0;
             _nodesList = new List<Node>();
             _blocksList = new List<Block>();
@@ -172,13 +252,10 @@ namespace YugantLoyaLibrary.Game2048
 
             foreach (Node node in freeNodes.Take(amount))
             {
-                Block block = Instantiate(blockPrefab, node.Pos, Quaternion.identity);
-                block.Init(GetBlockTypeByValue(Random.value >= 0.75f ? 4 : 2));
-                block.SetBlock(node);
-                _blocksList.Add(block);
+                SpawnBlock(node, Random.value >= 0.75f ? 4 : 2);
             }
 
-            if (freeNodes.Count() == 1)
+            if (!freeNodes.Any())
             {
                 //Game Lost
                 return;

@@ -215,10 +215,11 @@ namespace MoreMountains.Feedbacks
 		#endregion
 
 		#region PLAY
-        
+
 		/// <summary>
 		/// Plays all feedbacks using the MMFeedbacks' position as reference, and no attenuation
 		/// </summary>
+		/// <param name="feedback"></param>
 		public override void PlayFeedbacks()
 		{
 			PlayFeedbacksInternal(this.transform.position, FeedbacksIntensity);
