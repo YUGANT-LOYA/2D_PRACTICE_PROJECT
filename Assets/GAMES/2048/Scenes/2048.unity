@@ -342,9 +342,10 @@ MonoBehaviour:
   nodePrefab: {fileID: 536644168711455871, guid: ca9deca2bec602547818ec4e8bb63f3d, type: 3}
   blockPrefab: {fileID: 642316971013140731, guid: cfc111812bbb11440a574cc3e35fd46a, type: 3}
   boardSpriteRenderer: {fileID: 2247321082670125756, guid: 17eabb61942251f44b850bffac882441, type: 3}
-  blockMovingTime: 0.5
+  blockMovingTime: 0.4
   floatingTxtTime: 1
-  blockMovingEase: 30
+  overShootMovement: 1.2
+  blockMovingEase: 27
   blockTypeList:
   - value: 2
     color: {r: 0.8745098, g: 0.4, b: 0.7372549, a: 1}

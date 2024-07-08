@@ -33,7 +33,7 @@ namespace YugantLoyaLibrary.Game2048
         [SerializeField] private Node nodePrefab;
         [SerializeField] private Block blockPrefab;
         [SerializeField] private SpriteRenderer boardSpriteRenderer;
-        [SerializeField] private float blockMovingTime = 0.4f,floatingTxtTime = 1f;
+        [SerializeField] private float blockMovingTime = 0.4f, floatingTxtTime = 1f, overShootMovement = 1.2f;
         [SerializeField] private Ease blockMovingEase = Ease.InOutQuad;
         private List<Node> _nodesList;
         private List<Block> _blocksList;
@@ -79,6 +79,7 @@ namespace YugantLoyaLibrary.Game2048
                 Destroy(gameObject);
             }
 
+            Application.targetFrameRate = 60;
             _cam = Camera.main;
         }
 
@@ -115,7 +116,7 @@ namespace YugantLoyaLibrary.Game2048
 
         void SpawnBlock(Node node, int val)
         {
-            Debug.Log("Block Spawning");
+            //Debug.Log("Block Spawning");
             Block block = Instantiate(blockPrefab, node.Pos, Quaternion.identity);
             block.Init(GetBlockTypeByValue(val));
             block.SetBlock(node);
@@ -136,25 +137,25 @@ namespace YugantLoyaLibrary.Game2048
 
             foreach (Block block in orderBlockList)
             {
-                Node nextNode = block.currBlockNode;
+                Node nextNode = block.CurrNode;
 
                 do
                 {
                     block.SetBlock(nextNode);
-                    Node possibleNode = GetNodeAtPosition(nextNode.Pos + dir);
+                    Node possibleNode = GetNodeAtPosition((Vector2)nextNode.Pos + dir);
 
                     if (possibleNode != null)
                     {
-                        if (possibleNode.occupiedBlock != null && possibleNode.occupiedBlock.CanMerge(block.value))
+                        if (possibleNode.OccupiedNumberBlock != null && possibleNode.OccupiedNumberBlock.CanMerge(block.Value))
                         {
-                            block.MergeBlock(possibleNode.occupiedBlock);
+                            block.MergeBlock(possibleNode.OccupiedNumberBlock);
                         }
-                        else if (possibleNode.occupiedBlock == null)
+                        else if (possibleNode.OccupiedNumberBlock == null)
                         {
                             nextNode = possibleNode;
                         }
                     }
-                } while (nextNode != block.currBlockNode);
+                } while (nextNode != block.CurrNode);
 
 
                 //block.PlayMoveEffect(block.currBlockNode);
@@ -164,29 +165,30 @@ namespace YugantLoyaLibrary.Game2048
 
             foreach (Block block in orderBlockList)
             {
-                Vector3 movePoint = block.mergingBlock != null
-                    ? block.mergingBlock.currBlockNode.Pos
-                    : block.currBlockNode.Pos;
-                seq.Insert(0, block.transform.DOMove(movePoint, blockMovingTime).SetEase(blockMovingEase));
+                Vector3 movePoint = block.MergeBlockWith != null
+                    ? block.MergeBlockWith.CurrNode.Pos
+                    : block.CurrNode.Pos;
+                seq.Insert(0,
+                    block.transform.DOMove(movePoint, blockMovingTime).SetEase(blockMovingEase, overShootMovement));
             }
 
             seq.OnComplete(() =>
             {
-                foreach (Block block in orderBlockList.Where(temp => temp.mergingBlock != null))
+                foreach (Block block in orderBlockList.Where(temp => temp.MergeBlockWith != null))
                 {
-                    MergeBlock(block.mergingBlock, block);
-                    
+                    MergeBlock(block.MergeBlockWith, block);
+
                     TextMeshPro floatingTxt = ObjectPoolSystem.Instance
                         .GetObjectByType(PoolObjectType.FloatingText).GetComponent<TextMeshPro>();
 
-                    floatingTxt.text = (block.value * 2).ToString();
+                    floatingTxt.text = (block.Value * 2).ToString();
 
                     if (floatingTxt.gameObject != null)
                     {
                         floatingTxt.transform.position = block.Pos;
                         floatingTxt.transform.DOMoveY(floatingTxt.transform.position.y + 1.5f, floatingTxtTime);
                         Color txtColor = floatingTxt.color;
-                        
+
                         floatingTxt.DOFade(0f, floatingTxtTime).OnComplete(() =>
                         {
                             floatingTxt.color = txtColor;
@@ -204,7 +206,7 @@ namespace YugantLoyaLibrary.Game2048
 
         void MergeBlock(Block baseBlock, Block mergingBlock)
         {
-            SpawnBlock(baseBlock.currBlockNode, baseBlock.value * 2);
+            SpawnBlock(baseBlock.CurrNode, baseBlock.Value * 2);
             RemoveBlock(baseBlock);
             RemoveBlock(mergingBlock);
         }
@@ -217,7 +219,7 @@ namespace YugantLoyaLibrary.Game2048
 
         Node GetNodeAtPosition(Vector2 pos)
         {
-            return _nodesList.FirstOrDefault(temp => temp.Pos == pos);
+            return _nodesList.FirstOrDefault(temp => (Vector2)temp.Pos == pos);
         }
 
         void GenerateGrid()
@@ -248,7 +250,7 @@ namespace YugantLoyaLibrary.Game2048
         void SpawningBlocks(int amount)
         {
             IOrderedEnumerable<Node> freeNodes =
-                _nodesList.Where(n => n.occupiedBlock == null).OrderBy(b => Random.value);
+                _nodesList.Where(n => n.OccupiedNumberBlock == null).OrderBy(b => Random.value);
 
             foreach (Node node in freeNodes.Take(amount))
             {

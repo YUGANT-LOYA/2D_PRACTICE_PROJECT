@@ -76,7 +76,7 @@ namespace YugantLoyaLibrary.Game2048
 
             void SendSwipeMessage(Direction direction)
             {
-                Debug.Log($"Swiped {direction}!");
+                //Debug.Log($"Swiped {direction}!");
 
                 if (OnSwipe != null)
                 {

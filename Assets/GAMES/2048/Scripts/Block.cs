@@ -6,17 +6,34 @@ using UnityEngine;
 
 namespace YugantLoyaLibrary.Game2048
 {
-    public class Block : MonoBehaviour
+    public class Block : BlockBase
     {
-        public int value;
-        public Node currBlockNode;
-        public bool isMerging;
-        public Vector2 Pos => transform.position;
-        public Block mergingBlock;
+        public int Value { get; set; }
+        public bool IsMergeAllowed { get; set; }
+        public Node CurrNode { get; set; }
+        public Block MergeBlockWith { get; set; }
+        
+        public Vector3 Pos
+        {
+            get => transform.position;
+            set => transform.position = value;
+        }
+
+        public void SetBlock(Node node)
+        {
+            if (CurrNode != null)
+            {
+                CurrNode.OccupiedNumberBlock = null;
+            }
+
+            CurrNode = node;
+            CurrNode.OccupiedNumberBlock = this;
+        }
+        
         [SerializeField] SpriteRenderer spriteRenderer;
         [SerializeField] private TextMeshPro blockText;
         [SerializeField] MMF_Player mmPlayerFeedbacks;
-        
+
         private Dictionary<Type, MMF_Feedback> feedbackDictionary = new Dictionary<Type, MMF_Feedback>();
 
         private void Awake()
@@ -38,38 +55,37 @@ namespace YugantLoyaLibrary.Game2048
 
         public void Init(BlockType type)
         {
-            value = type.value;
+            Value = type.value;
             spriteRenderer.color = type.color;
-            blockText.text = value.ToString();
+            blockText.text = Value.ToString();
         }
-
-        public void SetBlock(Node newNode)
-        {
-            if (currBlockNode != null)
-            {
-                currBlockNode.occupiedBlock = null;
-            }
-
-            currBlockNode = newNode;
-            currBlockNode.occupiedBlock = this;
-        }
-
-        public void MergeBlock(Block blockToMergeWith)
-        {
-            mergingBlock = blockToMergeWith;
-            currBlockNode.occupiedBlock = null;
-            mergingBlock.isMerging = true;
-        }
-
-        public bool CanMerge(int val) => value == val && !isMerging && mergingBlock == null;
         
+        // public void SetBlock(Node newNode)
+        // {
+        //     if (CurrNode != null)
+        //     {
+        //         CurrNode.OccupiedNumberBlock = null;
+        //     }
+        //
+        //     CurrNode = newNode;
+        //     CurrNode.OccupiedNumberBlock = this;
+        // }
+
+        // public void MergeBlock(Block blockToMergeWith)
+        // {
+        //     mergingBlock = blockToMergeWith;
+        //     CurrNode.OccupiedNumberBlock = null;
+        //     mergingBlock.IsMergeAllowed = true;
+        // }
+
+        public bool CanMerge(int val) => Value == val && !IsMergeAllowed && MergeBlockWith == null;
+
         public void PlayMoveEffect(Node targetNode)
         {
             MMF_Position positionFeedBack = GetFeedback<MMF_Position>();
             positionFeedBack.InitialPosition = transform.position;
             positionFeedBack.DestinationPosition = targetNode.transform.position;
             mmPlayerFeedbacks?.PlayFeedbacks();
-            
         }
 
         public T GetFeedback<T>() where T : MMF_Feedback
@@ -89,6 +105,13 @@ namespace YugantLoyaLibrary.Game2048
             }
 
             return null;
+        }
+
+        public void MergeBlock(Block mergeBlockWith)
+        {
+            MergeBlockWith = mergeBlockWith;
+            CurrNode.OccupiedNumberBlock = null;
+            MergeBlockWith.IsMergeAllowed = true;
         }
     }
 }
