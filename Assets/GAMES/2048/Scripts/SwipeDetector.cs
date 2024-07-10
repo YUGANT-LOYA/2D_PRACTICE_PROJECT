@@ -18,9 +18,6 @@ namespace YugantLoyaLibrary.Game2048
 
             void HandleSwipe(SwipeHandler.Direction direction)
             {
-                if (GameManager.CurrGameState != GameState.WaitingInput)
-                    return;
-                
                 switch (direction)
                 {
                     case SwipeHandler.Direction.Right:
@@ -42,28 +39,24 @@ namespace YugantLoyaLibrary.Game2048
             {
                 // Your code to handle swipe right
                 //Debug.Log("Right!");
-                GameManager.Instance.ShiftBlocks(Vector2.right);
             }
 
             void MoveLeft()
             {
                 // Your code to handle swipe left
                 //Debug.Log("Left!");
-                GameManager.Instance.ShiftBlocks(Vector2.left);
             }
 
             void MoveUp()
             {
                 // Your code to handle swipe up
                 //Debug.Log("Up!");
-                GameManager.Instance.ShiftBlocks(Vector2.up);
             }
 
             void MoveDown()
             {
                 // Your code to handle swipe down
                 //Debug.Log("Down!");
-                GameManager.Instance.ShiftBlocks(Vector2.down);
             }
         }
     }
